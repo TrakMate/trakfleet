@@ -105,11 +105,7 @@ class VehicleStatusMap {
   int? charging;
   int? idle;
   int? disconnected;
-<<<<<<< HEAD
-  int? disCharging;
-=======
   int? discharging;
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
   int? moving;
   int? stopped;
   int? noncoverage;
@@ -118,11 +114,7 @@ class VehicleStatusMap {
     this.charging,
     this.idle,
     this.disconnected,
-<<<<<<< HEAD
-    this.disCharging,
-=======
     this.discharging,
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
     this.moving,
     this.stopped,
     this.noncoverage,
@@ -132,11 +124,7 @@ class VehicleStatusMap {
     charging = json['charging'];
     idle = json['idle'];
     disconnected = json['disconnected'];
-<<<<<<< HEAD
-    disCharging = json['discharging'];
-=======
     discharging = json['discharging'];
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
     stopped = json['stopped'];
     moving = json['moving'];
     noncoverage = json['noncoverage'];
@@ -147,11 +135,7 @@ class VehicleStatusMap {
     data['charging'] = this.charging;
     data['idle'] = this.idle;
     data['disconnected'] = this.disconnected;
-<<<<<<< HEAD
-    data['discharging'] = this.disCharging;
-=======
     data['disCharging'] = this.discharging;
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
     data['stopped'] = this.stopped;
     data['moving'] = this.moving;
     data['noncoverage'] = this.noncoverage;

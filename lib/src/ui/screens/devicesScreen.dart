@@ -9,10 +9,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:lottie/lottie.dart' show Lottie;
 import 'package:provider/provider.dart';
 import 'package:svg_flutter/svg_flutter.dart';
-<<<<<<< HEAD
-=======
 import 'package:tm_fleet_management/src/models/devicesMapModel.dart';
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
 import '../../models/devicesModel.dart';
 import '../../provider/fleetModeProvider.dart';
 import '../../services/generalAPIServices.dart/deviceAPIServices/deviceAPIService.dart';
@@ -32,11 +29,7 @@ class DevicesScreen extends StatefulWidget {
 
 class _DevicesScreenState extends State<DevicesScreen> {
   OverlayEntry? _devicePopup;
-<<<<<<< HEAD
-
-=======
   int _totalCountFromAPI = 0;
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
   final List<String> _nonEVStatuses = [
     'Moving',
     'Stopped',
@@ -99,13 +92,9 @@ class _DevicesScreenState extends State<DevicesScreen> {
 
   List<DeviceEntity> _allDevices = [];
   List<DeviceEntity> _filteredDevices = [];
-<<<<<<< HEAD
-
-=======
   // Add this near your other lists
   List<Entities> _allMapDevices = [];
   List<Entities> _filteredMapDevices = [];
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
   final TextEditingController _searchController = TextEditingController();
   String _searchQuery = '';
 
@@ -127,70 +116,6 @@ class _DevicesScreenState extends State<DevicesScreen> {
   @override
   void initState() {
     super.initState();
-<<<<<<< HEAD
-    _loadDevices();
-  }
-
-  Future<void> _loadDevices() async {
-    setState(() => _loading = true);
-
-    try {
-      final res = await _api.fetchDevices(
-        currentIndex: 0,
-        sizePerPage: 10,
-        status: widget.filterStatus,
-      );
-
-      _allDevices = res.entities ?? [];
-      _applyFilters();
-    } catch (e) {
-      debugPrint('Device fetch error: $e');
-    } finally {
-      if (mounted) setState(() => _loading = false);
-    }
-  }
-
-  int safeInt(dynamic value) {
-    if (value == null) return 0;
-    String s = value.toString().trim();
-    s = s.replaceAll(RegExp(r'[^0-9]'), '');
-    if (s.isEmpty) return 0;
-    return int.tryParse(s) ?? 0;
-  }
-
-  void _applyFilters() {
-    List<DeviceEntity> result = List.from(_allDevices);
-
-    ///  SEARCH FILTER (IMEI / Vehicle / Status)
-    if (_searchQuery.isNotEmpty) {
-      final q = _searchQuery.toLowerCase();
-
-      result =
-          result.where((d) {
-            return (d.imei ?? '').toLowerCase().contains(q) ||
-                (d.vehicleNumber ?? '').toLowerCase().contains(q) ||
-                (d.status ?? '').toLowerCase().contains(q);
-          }).toList();
-    }
-
-    /// STATUS FILTER
-    if (_selectedStatuses.isNotEmpty) {
-      result =
-          result.where((d) => _selectedStatuses.contains(d.status)).toList();
-    }
-
-    /// VALUE FILTER (only one at a time)
-    if (_selectedFilterValues.contains('Max Odo')) {
-      result.sort((a, b) => safeInt(b.odometer) - safeInt(a.odometer));
-    } else if (_selectedFilterValues.contains('Max Trips Count')) {
-      result.sort((a, b) => (b.totalTrips ?? 0).compareTo(a.totalTrips ?? 0));
-    } else if (_selectedFilterValues.contains('Max Alerts')) {
-      result.sort((a, b) => (b.totalAlerts ?? 0).compareTo(a.totalAlerts ?? 0));
-    }
-
-    _filteredDevices = result;
-    currentPage = 1; // reset page
-=======
     _loadDevices(); // Load paginated list
     _loadDevicesForMap(); // Load ALL devices for map
   }
@@ -363,7 +288,6 @@ class _DevicesScreenState extends State<DevicesScreen> {
     if (s.isEmpty) return 0;
 
     return int.tryParse(s) ?? 0;
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
   }
 
   @override
@@ -377,19 +301,6 @@ class _DevicesScreenState extends State<DevicesScreen> {
     super.dispose();
   }
 
-<<<<<<< HEAD
-  List<Marker> _buildMarkersFromDevices(List<DeviceEntity> devices) {
-    return devices.where((d) => d.lat != null && d.lng != null).map((device) {
-      final pos = LatLng(device.lat!, device.lng!);
-
-      final iconPath = switch (device.status) {
-        'Moving' => _truckIconPaths[0],
-        'Stopped' => _truckIconPaths[1],
-        'Idle' => _truckIconPaths[2],
-        'Disconnected' => _truckIconPaths[3],
-        'Non Coverage' => _truckIconPaths[4],
-        'Charging' => _truckIconPaths[5],
-=======
   List<Marker> _buildMarkersFromDevices(List<Entities> devices) {
     return devices.where((d) => d.lat != null && d.lng != null).map((device) {
       final pos = LatLng(device.lat!, device.lng!);
@@ -403,29 +314,16 @@ class _DevicesScreenState extends State<DevicesScreen> {
         'non coverage' => _truckIconPaths[4],
         'non_coverage' => _truckIconPaths[4],
         'charging' => _truckIconPaths[5],
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
         _ => _truckIconPaths[0],
       };
 
       return Marker(
         key: ValueKey('${device.imei}|${device.status}'),
-<<<<<<< HEAD
-        //key: ValueKey(device.imei),
-=======
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
         point: pos,
         width: 25,
         height: 25,
         child: GestureDetector(
           onTapDown: (d) {
-<<<<<<< HEAD
-            _showDeviceTooltip(
-              device,
-              pos,
-              Theme.of(context).brightness == Brightness.dark,
-              globalPosition: d.globalPosition,
-            );
-=======
             // You'll need to find the corresponding DeviceEntity for tooltip
             final deviceEntity = _findDeviceEntity(device.imei);
             if (deviceEntity != null) {
@@ -436,7 +334,6 @@ class _DevicesScreenState extends State<DevicesScreen> {
                 globalPosition: d.globalPosition,
               );
             }
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
           },
           child: SvgPicture.asset(iconPath),
         ),
@@ -444,18 +341,6 @@ class _DevicesScreenState extends State<DevicesScreen> {
     }).toList();
   }
 
-<<<<<<< HEAD
-  List<DeviceEntity> get paginatedDevices {
-    final start = (currentPage - 1) * itemsPerPage;
-    final end = (start + itemsPerPage).clamp(0, _filteredDevices.length);
-    return start >= _filteredDevices.length
-        ? []
-        : _filteredDevices.sublist(start, end);
-  }
-
-  int get totalPages =>
-      (_filteredDevices.length / itemsPerPage).ceil().clamp(1, 999);
-=======
   // Helper method to find DeviceEntity by imei
   DeviceEntity? _findDeviceEntity(String? imei) {
     if (imei == null) return null;
@@ -473,7 +358,6 @@ class _DevicesScreenState extends State<DevicesScreen> {
 
   // int get totalPages =>
   //     (_filteredDevices.length / itemsPerPage).ceil().clamp(1, 999);
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
 
   void _changeZoom(double delta) {
     _zoomDebounceTimer?.cancel();
@@ -522,18 +406,6 @@ class _DevicesScreenState extends State<DevicesScreen> {
         final parts = key.value.split('|');
         if (parts.length < 2) continue;
 
-<<<<<<< HEAD
-        final status = parts[1];
-
-        switch (status) {
-          case 'Moving':
-            moving++;
-            break;
-          case 'Stopped':
-            stopped++;
-            break;
-          case 'Idle':
-=======
         final status = parts[1].toLowerCase();
 
         switch (status) {
@@ -544,7 +416,6 @@ class _DevicesScreenState extends State<DevicesScreen> {
             stopped++;
             break;
           case 'idle':
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
             idle++;
             break;
         }
@@ -603,49 +474,6 @@ class _DevicesScreenState extends State<DevicesScreen> {
 
     _devicePopup = OverlayEntry(
       builder: (context) {
-<<<<<<< HEAD
-        return Positioned(
-          left: left,
-          top: top,
-          child: AnimatedOpacity(
-            duration: const Duration(milliseconds: 250),
-            opacity: 1,
-            child: Material(
-              color: isDark ? tBlack : tWhite,
-              borderRadius: BorderRadius.circular(10),
-              child: Container(
-                width: popupWidth,
-                padding: const EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: tTransparent,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: isDark ? tWhite : tBlack, width: 1),
-                  boxShadow: [
-                    BoxShadow(
-                      color:
-                          isDark
-                              ? tBlack.withOpacity(0.5)
-                              : tWhite.withOpacity(0.5),
-                      blurRadius: 14,
-                      offset: const Offset(0, 6),
-                    ),
-                  ],
-                  backgroundBlendMode: BlendMode.overlay,
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    // Header
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Device Details',
-                          style: GoogleFonts.urbanist(
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold,
-                            color: isDark ? tWhite : tBlack,
-=======
         return Positioned.fill(
           child: GestureDetector(
             behavior: HitTestBehavior.translucent,
@@ -775,67 +603,11 @@ class _DevicesScreenState extends State<DevicesScreen> {
                                 ],
                               ),
                             ],
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
                           ),
                         ),
                       ),
                     ),
-<<<<<<< HEAD
-                    SizedBox(height: 2),
-                    Divider(
-                      color:
-                          isDark
-                              ? tWhite.withOpacity(0.5)
-                              : tBlack.withOpacity(0.5),
-                      thickness: 0.4,
-                    ),
-                    SizedBox(height: 2),
-                    // Device details grid
-                    Wrap(
-                      runSpacing: 1,
-                      children: [
-                        _deviceInfoRow(
-                          'Vehicle',
-                          device.vehicleNumber ?? '--',
-                          isDark,
-                        ),
-                        _deviceInfoRow('Status', device.status ?? '--', isDark),
-                        _deviceInfoRow('IMEI', device.imei ?? '--', isDark),
-                        _deviceInfoRow('ODO', device.odometer ?? '--', isDark),
-                        _deviceInfoRow(
-                          'Trips',
-                          (device.totalTrips ?? 0).toString(),
-                          isDark,
-                        ),
-                        _deviceInfoRow(
-                          'Alerts',
-                          (device.totalAlerts ?? 0).toString(),
-                          isDark,
-                        ),
-                        // _deviceInfoRow(
-                        //   'Location',
-                        //   device.location ?? '',
-                        //   isDark,
-                        // ),
-                        FutureBuilder<String>(
-                          future: getAddressFromLocationStringWeb(
-                            device.location ?? '',
-                          ),
-                          builder: (context, snapshot) {
-                            final address =
-                                snapshot.hasData
-                                    ? snapshot.data!
-                                    : 'Fetching location...';
-
-                            return _deviceInfoRow('Location', address, isDark);
-                          },
-                        ),
-                      ],
-                    ),
-                  ],
-=======
                   ),
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
                 ),
               ],
             ),
@@ -950,14 +722,9 @@ class _DevicesScreenState extends State<DevicesScreen> {
   Widget _buildClusterMap() {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-<<<<<<< HEAD
-    // Use filtered devices instead of cached markers
-    final markers = _buildMarkersFromDevices(_filteredDevices);
-=======
     // Use filtered map devices instead of filtered list devices
     final markers = _buildMarkersFromDevices(_filteredMapDevices);
 
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
     return FlutterMap(
       mapController: _mapController,
       options: MapOptions(
@@ -1013,23 +780,6 @@ class _DevicesScreenState extends State<DevicesScreen> {
                 ),
               );
             },
-<<<<<<< HEAD
-            // --- Handle marker tap ---
-            // onMarkerTap: (marker) {
-            //   if (marker.key is ValueKey<Map<String, dynamic>>) {
-            //     final device =
-            //         (marker.key as ValueKey<Map<String, dynamic>>).value;
-            //     _showDeviceTooltip(
-            //       device as DeviceEntity,
-            //       device['latlng'],
-            //       isDark,
-            //       globalPosition: const Offset(0, 0),
-            //       placement: 'top',
-            //     );
-            //   }
-            // },
-=======
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
           ),
         ),
 
@@ -1052,142 +802,6 @@ class _DevicesScreenState extends State<DevicesScreen> {
     );
   }
 
-<<<<<<< HEAD
-  Widget _buildFilterPanel(bool isDark) {
-    final mode = context.watch<FleetModeProvider>().mode;
-
-    return Positioned(
-      top: 55,
-      right: 0,
-      child: Material(
-        color: Colors.transparent,
-        child: Container(
-          width: 350,
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: isDark ? tBlack : tWhite,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                color:
-                    isDark ? tWhite.withOpacity(0.2) : tBlack.withOpacity(0.2),
-                blurRadius: 8,
-                offset: const Offset(0, 4),
-              ),
-            ],
-            border: Border.all(color: isDark ? tWhite : tBlack, width: 0.5),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildFilterGroup(
-                title: 'Vehicle Status',
-                items: mode == 'EV Fleet' ? _evStatuses : _nonEVStatuses,
-                selectedItems: _selectedStatuses,
-                onTap: (item) {
-                  if (!mounted) return;
-                  setState(() {
-                    if (_selectedStatuses.contains(item)) {
-                      _selectedStatuses.remove(item);
-                    } else {
-                      _selectedStatuses.add(item);
-                    }
-                  });
-                },
-                isDark: isDark,
-                colorResolver: (item) {
-                  if (mode == 'EV Fleet') {
-                    return _evStatusColors[item] ?? tBlue;
-                  }
-                  return _nonEVStatusColors[item] ?? tBlue;
-                },
-              ),
-              const SizedBox(height: 14),
-              Divider(
-                color:
-                    isDark ? tWhite.withOpacity(0.4) : tBlack.withOpacity(0.4),
-              ),
-              const SizedBox(height: 12),
-              _buildFilterGroup(
-                title: 'Filter by Values',
-                items: _filterValues,
-                selectedItems: _selectedFilterValues,
-                onTap: (item) {
-                  if (!mounted) return;
-                  setState(() {
-                    if (_selectedFilterValues.contains(item)) {
-                      _selectedFilterValues.remove(item);
-                    } else {
-                      _selectedFilterValues.clear();
-                      _selectedFilterValues.add(item);
-                    }
-                    currentPage = 1;
-                  });
-                },
-                isDark: isDark,
-                colorResolver: (_) => tBlue,
-              ),
-              const SizedBox(height: 18),
-              Align(
-                alignment: Alignment.centerRight,
-                child: ElevatedButton(
-                  onPressed: () {
-                    if (!mounted) return;
-                    setState(() {
-                      _applyFilters(); //apply filters
-                      _showFilterPanel = false;
-                      currentPage = 1;
-                    });
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: tBlue,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 10,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  child: Text(
-                    'Apply Filters',
-                    style: GoogleFonts.urbanist(
-                      color: tWhite,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _filterButton(bool isDark) => Container(
-    width: 40,
-    height: 40,
-    decoration: BoxDecoration(
-      color: tTransparent,
-      border: Border.all(color: isDark ? tWhite : tBlack, width: 1),
-    ),
-    child: IconButton(
-      onPressed: () {
-        if (!mounted) return;
-        setState(() => _showFilterPanel = !_showFilterPanel);
-      },
-      icon: SvgPicture.asset(
-        'icons/filter.svg',
-        width: 18,
-        height: 18,
-        color: isDark ? tWhite : tBlack,
-      ),
-    ),
-  );
-
-=======
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
   Widget _buildFilterBySearch(bool isDark) => Container(
     width: 250,
     height: 40,
@@ -1218,13 +832,6 @@ class _DevicesScreenState extends State<DevicesScreen> {
       ),
       onChanged: (query) {
         if (!mounted) return;
-<<<<<<< HEAD
-        setState(() {
-          _searchQuery = query.trim();
-          _applyFilters();
-        });
-      },
-=======
 
         _searchDebounceTimer?.cancel();
         _searchDebounceTimer = Timer(const Duration(milliseconds: 500), () {
@@ -1370,7 +977,6 @@ class _DevicesScreenState extends State<DevicesScreen> {
         height: 18,
         color: isDark ? tWhite : tBlack,
       ),
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
     ),
   );
 
@@ -1668,14 +1274,8 @@ class _DevicesScreenState extends State<DevicesScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-<<<<<<< HEAD
-              /// IMEI + Vehicle box (fixed width)
-              Container(
-                width: 250, // fixed width (adjust as you like)
-=======
               Container(
                 width: 250,
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
                 decoration: BoxDecoration(
                   border: Border.all(color: statusColor, width: 1),
                   borderRadius: BorderRadius.circular(6),
@@ -1723,10 +1323,6 @@ class _DevicesScreenState extends State<DevicesScreen> {
 
               const SizedBox(width: 15),
 
-<<<<<<< HEAD
-              /// Status container (top-aligned)
-=======
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
@@ -1893,8 +1489,6 @@ class _DevicesScreenState extends State<DevicesScreen> {
                       children: [
                         LayoutBuilder(
                           builder: (context, constraints) {
-<<<<<<< HEAD
-=======
                             // ADD EMPTY STATE HANDLING
                             if (paginatedDevices.isEmpty && !_loading) {
                               return Center(
@@ -1908,7 +1502,6 @@ class _DevicesScreenState extends State<DevicesScreen> {
                               );
                             }
 
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
                             return SingleChildScrollView(
                               padding: const EdgeInsets.only(bottom: 50),
                               child: ConstrainedBox(
@@ -1931,35 +1524,6 @@ class _DevicesScreenState extends State<DevicesScreen> {
                                                       context,
                                                       device,
                                                     ),
-<<<<<<< HEAD
-
-                                                // child: buildDeviceCard(
-                                                //   isDark: isDark,
-                                                //   imei: device.imei ?? '',
-                                                //   vehicleNumber:
-                                                //       device.vehicleNumber ??
-                                                //       '',
-                                                //   status: device.status ?? '',
-                                                //   fuel:
-                                                //       mode == 'EV Fleet'
-                                                //           ? device.soc ?? ''
-                                                //           : (device
-                                                //                   .tafe
-                                                //                   ?.fuellevel
-                                                //                   ?.toString() ??
-                                                //               ''),
-                                                //   odo: device.odometer ?? '',
-                                                //   trips:
-                                                //       (device.totalTrips ?? 0)
-                                                //           .toString(),
-                                                //   alerts:
-                                                //       (device.totalAlerts ?? 0)
-                                                //           .toString(),
-                                                //   location:
-                                                //       getAddressFromLocationString(device.location ?? ''),
-                                                // ),
-=======
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
                                                 child: FutureBuilder<String>(
                                                   future:
                                                       getAddressFromLocationStringWeb(
@@ -2039,10 +1603,6 @@ class _DevicesScreenState extends State<DevicesScreen> {
           ],
         ),
         if (_showFilterPanel) _buildFilterPanel(isDark),
-<<<<<<< HEAD
-
-=======
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
         if (_loading) _buildLoadingOverlay(isDark),
       ],
     );
@@ -2051,11 +1611,7 @@ class _DevicesScreenState extends State<DevicesScreen> {
   Widget _buildLoadingOverlay(bool isDark) {
     return Positioned.fill(
       child: AbsorbPointer(
-<<<<<<< HEAD
-        absorbing: true, // block all touches
-=======
         absorbing: true,
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
           child: Container(

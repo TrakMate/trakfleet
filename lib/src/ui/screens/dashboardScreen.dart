@@ -139,13 +139,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
   //   }
   // }
 
-<<<<<<< HEAD
-  Future<void> fetchAlertDetails() async {
-    setState(() => isDashboardLoading = true);
-=======
   Future<void> fetchAlertDetails({bool showLoading = true}) async {
     if (showLoading) setState(() => isDashboardLoading = true);
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
 
     try {
       final response = await _dashboardApi.fetchAlertDetails(
@@ -175,21 +170,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
     } catch (e) {
       debugPrint("Dashboard API error: $e");
     } finally {
-<<<<<<< HEAD
-      setState(() => isDashboardLoading = false);
-    }
-  }
-
-  Future<void> fetchTripDetails() async {
-    setState(() => isDashboardLoading = true);
-=======
       if (showLoading) setState(() => isDashboardLoading = false);
     }
   }
 
   Future<void> fetchTripDetails({bool showLoading = true}) async {
     if (showLoading) setState(() => isDashboardLoading = true);
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
 
     try {
       final response = await _dashboardApi.fetchTripsDetails(
@@ -225,21 +211,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
     } catch (e) {
       debugPrint("Dashboard API error: $e");
     } finally {
-<<<<<<< HEAD
-      setState(() => isDashboardLoading = false);
-    }
-  }
-
-  Future<void> fetchVehicleDetails() async {
-    setState(() => isDashboardLoading = true);
-=======
       if (showLoading) setState(() => isDashboardLoading = false);
     }
   }
 
   Future<void> fetchVehicleDetails({bool showLoading = true}) async {
     if (showLoading) setState(() => isDashboardLoading = true);
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
 
     try {
       final response = await _dashboardApi.fetchVehicleDetails(
@@ -267,11 +244,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         nonCoverage = response.vehicleStatusMap!.noncoverage ?? 0;
 
         charging = response.vehicleStatusMap!.charging ?? 0;
-<<<<<<< HEAD
-        discharging = response.vehicleStatusMap!.disCharging ?? 0;
-=======
         discharging = response.vehicleStatusMap!.discharging ?? 0;
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
         batteryIdle = response.vehicleStatusMap?.idle ?? 0;
         batteryDisconnected = response.vehicleStatusMap?.disconnected ?? 0;
 
@@ -288,8 +261,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     } catch (e) {
       debugPrint("Dashboard API error: $e");
     } finally {
-<<<<<<< HEAD
-=======
       if (showLoading) setState(() => isDashboardLoading = false);
     }
   }
@@ -305,7 +276,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     } catch (e) {
       debugPrint('Dashboard API error: $e');
     } finally {
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
       setState(() => isDashboardLoading = false);
     }
   }
@@ -401,13 +371,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     if (picked != null && picked != selectedDate) {
       setState(() => selectedDate = picked);
       // fetchDashboardDetails();
-<<<<<<< HEAD
-      fetchAlertDetails();
-      fetchTripDetails();
-      fetchVehicleDetails();
-=======
       fetchAllDashboardData();
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
     }
   }
 
@@ -499,13 +463,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   void initState() {
     super.initState();
     // fetchDashboardDetails();
-<<<<<<< HEAD
-    fetchAlertDetails();
-    fetchTripDetails();
-    fetchVehicleDetails();
-=======
     fetchAllDashboardData();
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
   }
 
   @override
@@ -584,11 +542,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   mode == 'EV Fleet'
                                       ? '$totalVehicles'
                                       : "$totalVehicles", //value: "5,673",
-<<<<<<< HEAD
-                              label: "Vehicles",
-=======
                               label: "Total Vehicles",
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
                               labelColor: tBlue,
                               icon: "icons/car.svg",
                               iconColor: tBlue,
@@ -1391,13 +1345,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               selectedGroup = value;
             });
             // fetchDashboardDetails();
-<<<<<<< HEAD
-            fetchAlertDetails();
-            fetchTripDetails();
-            fetchVehicleDetails();
-=======
             fetchAllDashboardData();
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
           },
           iconStyleData: IconStyleData(
             icon: Icon(

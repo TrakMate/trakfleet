@@ -40,11 +40,7 @@
 // }
 
 class BaseURLConfig {
-<<<<<<< HEAD
-  //   static const String baseURL = 'http://localhost:8001';
-=======
   //   static const String baseURL = 'http://192.168.1.68:8001';
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
   static const String baseURL =
       'http://hero-trakmate.ap-south-1.elasticbeanstalk.com';
 
@@ -62,15 +58,10 @@ class BaseURLConfig {
 
   static const String devicesApiUrl = '$baseURL/api/device?';
 
-<<<<<<< HEAD
-  // dashboard all details
-  static const String dashboardApiUrl = '$baseURL/api/dashboard/details';
-=======
   static const String devicesMapApiUrl = '$baseURL/api/v3/devices/map';
 
   // dashboard all details
   static const String dashboardApiUrl = '$baseURL/api/dashboard/summary';
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
 
   static const String alertDashboardApiUrl = '$baseURL/api/dashboard/alerts';
 
@@ -80,11 +71,7 @@ class BaseURLConfig {
       '$baseURL/api/dashboard/vehicles';
 
   //device full details
-<<<<<<< HEAD
-  static const String deviceDetailsApiUrl = '$baseURL/api/v3/devices';
-=======
   static const String deviceDetailsApiUrl = '$baseURL/api/v3/devices?';
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
   static const String deviceConfigurationApiUrl = '$baseURL/api/commands';
   static const String deviceAlertsApiUrl = '$baseURL/api/alerts';
   static const String deviceTripsApiUrl = '$baseURL/api/tripfulldetails';

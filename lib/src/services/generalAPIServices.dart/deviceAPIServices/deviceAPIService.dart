@@ -3,10 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-<<<<<<< HEAD
-=======
 import '../../../models/devicesMapModel.dart';
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
 import '../../../models/devicesModel.dart';
 import '../../apiURL.dart';
 
@@ -17,11 +14,8 @@ class DevicesApiService {
     required int currentIndex,
     required int sizePerPage,
     String? status,
-<<<<<<< HEAD
-=======
     String? search,
     List<String>? selectedStatuses,
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
   }) async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('accessToken');
@@ -49,8 +43,6 @@ class DevicesApiService {
     }
   }
 }
-<<<<<<< HEAD
-=======
 
 class DevicesMapApiService {
   static const String baseUrl = BaseURLConfig.devicesMapApiUrl;
@@ -80,4 +72,3 @@ class DevicesMapApiService {
     }
   }
 }
->>>>>>> c2ef342d8996b5efd33c2a858d85f2fad345860e
