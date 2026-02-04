@@ -192,6 +192,7 @@ class _DeviceDiagnosticsInfoScreenState
                 trips: (device.totalTrips ?? 0).toString(),
                 alerts: (device.totalAlerts ?? 0).toString(),
                 location: address,
+                lastUpdated: device.locationLogDate ?? '',
                 onTabChanged: (tab) {
                   setState(() => selectedTab = tab);
                 },
@@ -536,6 +537,7 @@ class _DeviceDiagnosticsInfoScreenState
     required String trips,
     required String alerts,
     required String location,
+    required String lastUpdated,
     required Function(String) onTabChanged,
     required String selectedTab,
   }) {
@@ -750,7 +752,7 @@ class _DeviceDiagnosticsInfoScreenState
                           const SizedBox(width: 6),
                           Expanded(
                             child: Text(
-                              'Live Location: $location',
+                              location,
                               style: GoogleFonts.urbanist(
                                 fontSize: 13,
                                 color: isDark ? tWhite : tBlack,
@@ -765,7 +767,7 @@ class _DeviceDiagnosticsInfoScreenState
                     Row(
                       children: [
                         Text(
-                          'DateTime :',
+                          'LastSync :',
                           style: GoogleFonts.urbanist(
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
@@ -774,7 +776,7 @@ class _DeviceDiagnosticsInfoScreenState
                         ),
                         const SizedBox(width: 5),
                         Text(
-                          '15:52 PM 04 NOV 2025',
+                          lastUpdated,
                           style: GoogleFonts.urbanist(
                             fontSize: 12,
                             fontWeight: FontWeight.w600,

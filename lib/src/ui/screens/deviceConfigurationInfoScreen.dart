@@ -815,7 +815,7 @@ class _DeviceConfigInfoScreenState extends State<DeviceConfigInfoScreen> {
               const SizedBox(width: 5),
               Expanded(
                 child: Text(
-                  'Live Location : $location',
+                  location,
                   style: GoogleFonts.urbanist(
                     fontSize: 13,
                     color: isDark ? tWhite : tBlack,
