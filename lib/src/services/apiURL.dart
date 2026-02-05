@@ -1,7 +1,7 @@
 class BaseURLConfig {
   //   static const String baseURL = 'http://192.168.1.68:8001';
   static const String baseURL =
-      'http://hero-trakmate.ap-south-1.elasticbeanstalk.com';
+      'https://hero-trakmate.ap-south-1.elasticbeanstalk.com';
 
   // login
   static const String loginApiURL = '$baseURL/api/signin';

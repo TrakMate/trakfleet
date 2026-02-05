@@ -238,7 +238,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Text(
                 'Welcome back! Please login to your account.',
                 style: GoogleFonts.urbanist(
-                  fontSize: 18,
+                  fontSize: 14,
                   fontWeight: FontWeight.w500,
                   color: isDark ? tWhite : tBlack,
                 ),
