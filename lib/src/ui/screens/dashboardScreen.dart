@@ -428,13 +428,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return [
       {
         'label': 'Charging',
-        'color': tGreen,
+        'color': Colors.teal,
         'count': charging,
         'percent': pct(charging),
       },
       {
         'label': 'Discharging',
-        'color': tBlue,
+        'color': tGreen,
         'count': discharging,
         'percent': pct(discharging),
       },
@@ -933,34 +933,48 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                             flex: 2,
                                             child: Column(
                                               children: [
-                                                SmallHoverCard(
-                                                  width: double.infinity,
-                                                  height: 75,
-                                                  value:
-                                                      completedTrips.toString(),
-                                                  label: "Completed Trips",
-                                                  labelColor: tBlue,
-                                                  icon: "icons/completed.svg",
-                                                  iconColor: tBlue,
-                                                  bgColor: tBlue.withOpacity(
-                                                    0.1,
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    context.go(
+                                                      '/home/trips?filter=Completed',
+                                                    );
+                                                  },
+                                                  child: SmallHoverCard(
+                                                    width: double.infinity,
+                                                    height: 75,
+                                                    value:
+                                                        completedTrips
+                                                            .toString(),
+                                                    label: "Completed Trips",
+                                                    labelColor: tBlue,
+                                                    icon: "icons/completed.svg",
+                                                    iconColor: tBlue,
+                                                    bgColor: tBlue.withOpacity(
+                                                      0.1,
+                                                    ),
+                                                    isDark: isDark,
                                                   ),
-                                                  isDark: isDark,
                                                 ),
                                                 const SizedBox(height: 10),
-                                                SmallHoverCard(
-                                                  width: double.infinity,
-                                                  height: 75,
-                                                  value:
-                                                      ongoingTrips.toString(),
-                                                  label: "Ongoing Trips",
-                                                  labelColor: tOrange1,
-                                                  icon: "icons/ongoing.svg",
-                                                  iconColor: tOrange1,
-                                                  bgColor: tOrange1.withOpacity(
-                                                    0.1,
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    context.go(
+                                                      '/home/trips?filter=Ongoing',
+                                                    );
+                                                  },
+                                                  child: SmallHoverCard(
+                                                    width: double.infinity,
+                                                    height: 75,
+                                                    value:
+                                                        ongoingTrips.toString(),
+                                                    label: "Ongoing Trips",
+                                                    labelColor: tOrange1,
+                                                    icon: "icons/ongoing.svg",
+                                                    iconColor: tOrange1,
+                                                    bgColor: tOrange1
+                                                        .withOpacity(0.1),
+                                                    isDark: isDark,
                                                   ),
-                                                  isDark: isDark,
                                                 ),
                                               ],
                                             ),

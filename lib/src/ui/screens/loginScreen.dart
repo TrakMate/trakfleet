@@ -29,7 +29,10 @@ class _LoginScreenState extends State<LoginScreen> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _passwordVisible = false;
+  bool _isUsernameValid = false;
+  bool _hasUsernameInput = false;
 
+  final RegExp _usernameRegex = RegExp(r'^[a-z]+\.[a-z]+$');
   @override
   void dispose() {
     _usernameController.dispose();
@@ -252,6 +255,20 @@ class _LoginScreenState extends State<LoginScreen> {
                 hintText: 'Enter your username',
                 isDark: isDark,
                 prefixIcon: CupertinoIcons.person,
+                onChanged: (value) {
+                  setState(() {
+                    _hasUsernameInput = value.isNotEmpty;
+                    _isUsernameValid = _usernameRegex.hasMatch(value);
+                  });
+                },
+                suffixIcon:
+                    _hasUsernameInput
+                        ? Icon(
+                          _isUsernameValid ? Icons.check_circle : Icons.cancel,
+                          color: _isUsernameValid ? tGreen3 : tRed,
+                          size: 20,
+                        )
+                        : null,
               ),
               const SizedBox(height: 15),
 
@@ -336,9 +353,12 @@ class _LoginScreenState extends State<LoginScreen> {
     bool passwordVisible = false,
     VoidCallback? togglePasswordVisibility,
     IconData? prefixIcon,
+    Widget? suffixIcon,
+    ValueChanged<String>? onChanged,
   }) {
     return TextField(
       controller: controller,
+      onChanged: onChanged,
       obscureText: isPassword ? !passwordVisible : false,
       decoration: InputDecoration(
         labelText: labelText,
@@ -385,7 +405,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   onPressed: togglePasswordVisibility,
                 )
-                : null,
+                : suffixIcon,
       ),
       style: GoogleFonts.urbanist(
         fontSize: 13,

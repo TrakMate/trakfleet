@@ -1,5 +1,0 @@
-2026/01/30-12:02:04.543 33ec Creating DB C:\Users\Srusti\AppData\Local\Temp\flutter_tools.7281cdb4\flutter_tools_chrome_device.b92e6536\Default\IndexedDB\https_www.youtube.com_0.indexeddb.leveldb since it was missing.
-2026/01/30-12:02:04.546 33ec Reusing MANIFEST C:\Users\Srusti\AppData\Local\Temp\flutter_tools.7281cdb4\flutter_tools_chrome_device.b92e6536\Default\IndexedDB\https_www.youtube.com_0.indexeddb.leveldb/MANIFEST-000001
-2026/01/30-13:57:24.962 ca8 Level-0 table #5: started
-2026/01/30-13:57:24.975 ca8 Level-0 table #5: 1516384 bytes OK
-2026/01/30-13:57:24.976 ca8 Delete type=0 #3

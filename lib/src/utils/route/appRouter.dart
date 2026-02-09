@@ -134,10 +134,18 @@ class AppRouter {
           /// ------------------------------
           /// OTHER SCREENS
           /// ------------------------------
+          // GoRoute(
+          //   path: '/home/trips',
+          //   name: 'trips',
+          //   builder: (context, state) => const TripsScreen(),
+          // ),
           GoRoute(
             path: '/home/trips',
             name: 'trips',
-            builder: (context, state) => const TripsScreen(),
+            builder: (context, state) {
+              final filter = state.uri.queryParameters['filter'];
+              return TripsScreen(initialFilter: filter ?? "All Trips");
+            },
           ),
           GoRoute(
             path: '/home/reports',

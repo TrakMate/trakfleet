@@ -1,8 +1,8 @@
 class BaseURLConfig {
   //   static const String baseURL = 'http://192.168.1.68:8001';
-  // static const String baseURL =
-  //     'https://hero-trakmate.ap-south-1.elasticbeanstalk.com';
-  static const String baseURL = 'https://ev-backend.trakmatesolutions.com';
+  static const String baseURL =
+      'http://hero-trakmate.ap-south-1.elasticbeanstalk.com';
+  // static const String baseURL = 'https://ev-backend.trakmatesolutions.com';
   // login
   static const String loginApiURL = '$baseURL/api/signin';
 
@@ -17,8 +17,6 @@ class BaseURLConfig {
 
   static const String devicesApiUrl = '$baseURL/api/device?';
 
-  static const String devicesMapApiUrl = '$baseURL/api/v3/devices/map';
-
   // dashboard all details
   static const String dashboardApiUrl = '$baseURL/api/dashboard/summary';
 
@@ -31,6 +29,7 @@ class BaseURLConfig {
 
   //device full details
   static const String deviceDetailsApiUrl = '$baseURL/api/v3/devices?';
+  static const String devicesMapApiUrl = '$baseURL/api/v3/devices/map';
   static const String deviceConfigurationApiUrl = '$baseURL/api/commands';
   static const String deviceAlertsApiUrl = '$baseURL/api/alerts';
   static const String deviceTripsApiUrl = '$baseURL/api/tripfulldetails';
@@ -38,7 +37,7 @@ class BaseURLConfig {
   static const String deviceTripMapApiUrl = '$baseURL/api/device/map';
   static const String deviceGraphApiUrl = '$baseURL/api/device/graphDetails';
   static const String deviceDistSpeedSocApiUrl =
-      '$baseURL/api/device/SpeedDistanceMap';
+      '$baseURL/api/v3/device/SpeedDistanceMap';
 
   // trips
   static const String tripsApiUrl = '$baseURL/api/trips/status';

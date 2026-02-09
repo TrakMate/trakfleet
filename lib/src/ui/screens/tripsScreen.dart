@@ -19,7 +19,9 @@ import '../../utils/appResponsive.dart';
 import '../components/customTitleBar.dart';
 
 class TripsScreen extends StatefulWidget {
-  const TripsScreen({super.key});
+  final String initialFilter;
+
+  const TripsScreen({super.key, this.initialFilter = "All Trips"});
 
   @override
   State<TripsScreen> createState() => _TripsScreenState();
@@ -41,7 +43,8 @@ class _TripsScreenState extends State<TripsScreen> {
     }
   }
 
-  String selectedFilter = "All Trips";
+  // String selectedFilter = "All Trips";
+  late String selectedFilter;
   Entities? selectedTrip;
 
   bool _isMapReady = false;
@@ -117,6 +120,8 @@ class _TripsScreenState extends State<TripsScreen> {
   @override
   void initState() {
     super.initState();
+    selectedFilter = widget.initialFilter;
+
     fetchTrips();
   }
 
@@ -124,6 +129,21 @@ class _TripsScreenState extends State<TripsScreen> {
   void dispose() {
     _playTimer?.cancel();
     super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(covariant TripsScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.initialFilter != widget.initialFilter) {
+      setState(() {
+        selectedFilter = widget.initialFilter;
+        currentPage = 1;
+        selectedTrip = null;
+      });
+
+      fetchTrips();
+    }
   }
 
   void _togglePlayback() {
@@ -285,6 +305,8 @@ class _TripsScreenState extends State<TripsScreen> {
                               itemCount: allTrips.length,
                               itemBuilder: (context, index) {
                                 final trip = allTrips[index];
+                                final bool isSelected =
+                                    selectedTrip?.id == trip.id;
                                 return GestureDetector(
                                   // onTap: () {
                                   //   // if (trip['status'] == 'Completed') {
@@ -369,6 +391,7 @@ class _TripsScreenState extends State<TripsScreen> {
                                   },
                                   child: buildTripCard(
                                     isDark: isDark,
+                                    isSelected: isSelected,
                                     tripNumber: trip.id ?? "--",
                                     truckNumber: trip.imei ?? "--",
                                     status:
@@ -691,6 +714,7 @@ class _TripsScreenState extends State<TripsScreen> {
 
   Widget buildTripCard({
     required bool isDark,
+    required bool isSelected,
     required String tripNumber,
     required String truckNumber,
     required String status,
@@ -720,6 +744,7 @@ class _TripsScreenState extends State<TripsScreen> {
       decoration: BoxDecoration(
         color: isDark ? tBlack : tWhite,
         // borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: isSelected ? tBlue : tTransparent, width: 2),
         boxShadow: [
           BoxShadow(
             spreadRadius: 2,
